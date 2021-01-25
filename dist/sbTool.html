@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <base target="_top">
+    <link rel="stylesheet" href="https://ssl.gstatic.com/docs/script/css/add-ons1.css">
+
+    <style>
+        #overlay {
+            position: fixed;
+            top: 0;
+            z-index: 100;
+            width: 100%;
+            height: 100%;
+            display: none;
+            background: rgba(0, 0, 0, 0.6);
+        }
+
+        .cv-spinner {
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px #ddd solid;
+            border-top: 4px #2e93e6 solid;
+            border-radius: 50%;
+            animation: sp-anime 0.8s infinite linear;
+        }
+
+        @keyframes sp-anime {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .is-hide {
+            display: none;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="overlay">
+        <div class="cv-spinner">
+            <span class="spinner"></span>
+        </div>
+    </div>
+
+    <div class="sidebar branding-below">
+        <div class="block">
+            ●ガイダンスは「表示」-「マスタ」の「レイアウト」で編集してください。<BR>
+            ●ガイダンスにしたいShapeを配置、選択して「TYPE○○登録」を行ってください。
+            編集が終わったら、配付用にコピーを行ってからプロジェクト（支援サイドバー機能）を削除してください。
+        </div>
+        <div>
+            <div class="block">
+                ●こどもSuiteコマンド
+                <div class="block">
+                    <button id="btGuideOn" class="action">ガイダンス表示</button>
+                    <button id="btnGuideOff" class="action">ガイダンス非表示</button>
+                </div>
+            </div>
+            <div class="block">
+                ●ガイダンス作成支援コマンド
+                <div class="block">
+                    <button id="btGuideDebug1" class="action">ガイダンス図形確認</button>
+                </div>
+                <div class="block">
+                    <button id="btnGuide1Reg" class="create">TYPE01登録</button>
+                    <button id="btnGuide2Reg" class="create">TYPE02登録</button>
+                </div>
+                <div class="block">
+                    <button id="btnGuideRelease" class="create">TYPE解除</button>
+                </div>
+                <div class="block">
+                    ●PH支援
+                    <div class="block">
+                        <button id="btnGuideFront" class="action">PHを最前面</button>
+                        <button id="btnGuideBack" class="action">PHを最後面</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script>
+    document.getElementById('btGuideOn').addEventListener('click', () => {
+
+        google.script.run.withSuccessHandler(function (data) {
+            $("#overlay").fadeOut(300);
+        }).phDescVisible(true);
+        $("#overlay").fadeIn(300);
+    });
+    document.getElementById('btnGuideOff').addEventListener('click', () => {
+
+
+        google.script.run.withSuccessHandler(function (data) {
+            $("#overlay").fadeOut(300);
+        }).phDescVisible(false);
+        $("#overlay").fadeIn(300);
+    });
+    document.getElementById('btGuideDebug1').addEventListener('click', () => {
+
+        google.script.run.withSuccessHandler(function (data) {
+            $("#overlay").fadeOut(300);
+        }).phDescDebugVisible(true);
+        $("#overlay").fadeIn(300);
+    });
+    document.getElementById('btnGuide1Reg').addEventListener('click', () => {
+
+        google.script.run.withSuccessHandler(function (data) {
+            $("#overlay").fadeOut(300);
+        }).phDescShapeSet();
+        $("#overlay").fadeIn(300);
+    });
+    document.getElementById('btnGuide2Reg').addEventListener('click', () => {
+        google.script.run.withSuccessHandler(function (data) {
+            $("#overlay").fadeOut(300);
+        }).phDescShapeSet2();
+        $("#overlay").fadeIn(300);
+    });
+    document.getElementById('btnGuideRelease').addEventListener('click', () => {
+        google.script.run.withSuccessHandler(function (data) {
+            $("#overlay").fadeOut(300);
+        }).phDescShapeRelease();
+        $("#overlay").fadeIn(300);
+    });
+
+    document.getElementById('btnGuideFront').addEventListener('click', () => {
+        google.script.run.withSuccessHandler(function (data) {
+            $("#overlay").fadeOut(300);
+        }).phDescShapeZOrder("bringToFront");
+        $("#overlay").fadeIn(300);
+    });
+    document.getElementById('btnGuideBack').addEventListener('click', () => {
+        google.script.run.withSuccessHandler(function (data) {
+            $("#overlay").fadeOut(300);
+        }).phDescShapeZOrder("sendBackward");
+        $("#overlay").fadeIn(300);
+    });
+
+</script>
+
+</html>
